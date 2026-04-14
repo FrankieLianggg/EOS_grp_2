@@ -120,7 +120,7 @@ Five reports were created using SQL and Excel:
 
 ## Use of AI Tools
 
-AI tools (for example, Claude / ChatGPT) were used to help structure propositions, clarify SQL syntax, and improve documentation. All queries were reviewed and validated against the named database.
+AI tools (for example, Claude / ChatGPT) were used to help understand how to correctly structure propositions, clarify SQL syntax, and improve documentation. All queries were reviewed and validated against the named database.
 
 ---
 
