@@ -375,21 +375,13 @@ INSERT INTO dbo.OrderDetails SELECT * FROM Sales.OrderDetail;
   * Queries
   */
 
-  BEGIN TRY
+BEGIN TRY
     BEGIN TRAN;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM dbo.Customers AS C
-        WHERE C.custid = 101
-    )
-    BEGIN
-        INSERT INTO dbo.Customers
-            (custid, companyname, country, region, city)
-        VALUES
-            (101, N'Blue Sky Foods', N'USA', N'NY', N'New York');
-    END;
+    INSERT INTO dbo.Customers
+        (custid, companyname, country, region, city)
+    VALUES
+        (101, N'Blue Sky Foods', N'USA', N'NY', N'New York');
 
     INSERT INTO dbo.Orders
         (
@@ -410,7 +402,7 @@ INSERT INTO dbo.OrderDetails SELECT * FROM Sales.OrderDetail;
         )
     VALUES
         (
-            20001,
+            30001,
             101,
             3,
             '20260413',
