@@ -20,6 +20,8 @@ This project demonstrates SQL data modification techniques, including:
 Each operation is applied to business-style scenarios using the `Northwinds2024Student` database.
 
 ---
+## Loom / Video Overview 
+https://www.loom.com/share/b9034a0185b34b168709d24ff8751c04
 
 ## Objectives
 
