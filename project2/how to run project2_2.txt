@@ -1,0 +1,9 @@
+Example run:
+java -cp ".;C:\path\to\mssql-jdbc-12.6.1.jre11.jar" Project2DemoUI
+  
+Demo steps
+Click Show Workflow Steps
+Click Show Fact Count
+Click Run LoadStarSchemaData
+Observe refreshed workflow output in JTable
+
