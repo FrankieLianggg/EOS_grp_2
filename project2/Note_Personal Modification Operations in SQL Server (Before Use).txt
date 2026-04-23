@@ -1,0 +1,15 @@
+In file DbConfig.java
+You need to make changes based on your specific SQL Server settings.
+
+
+package com.eosgrp.jdbc.config;
+
+public class DbConfig {
+
+    public static final String URL =
+        "jdbc:sqlserver://127.0.0.1:13001;databaseName=Northwinds2024Student;encrypt=false;trustServerCertificate=true"; //server
+
+    public static final String USER = "sa"; //name
+    public static final String PASSWORD = "YourStrong!Pass123"; //paasword
+}
+
