@@ -38,7 +38,7 @@ The project also includes a **Java JDBC application** to demonstrate database co
 - `11_create_master_load_procedure.sql` — Master ETL procedure  
 - `12_test_queries.sql` — Step-by-step testing  
 - `13_final_verification.sql` — Final validation  
-
+- Video link[videoProject2][https://youtu.be/lsUPvtWTtf8?si=MRE6G6MVZYE6xd80]
 ---
 
 ### 🔹 Java Files
