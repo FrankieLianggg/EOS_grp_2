@@ -13,7 +13,7 @@ The project also includes a **Java JDBC application** to demonstrate database co
 ---
 
 ## 🎯 Objectives
-- Recreate the BIClass star schema  
+- Recreate the BIClass star schema.  
 - Build dimension and fact tables  
 - Implement ETL load procedures  
 - Track workflow execution  
