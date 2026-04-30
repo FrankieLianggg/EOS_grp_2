@@ -39,6 +39,8 @@ The project also includes a **Java JDBC application** to demonstrate database co
 - `12_test_queries.sql` — Step-by-step testing  
 - `13_final_verification.sql` — Final validation  
 - Video link[videoProject2][https://youtu.be/lsUPvtWTtf8?si=MRE6G6MVZYE6xd80]
+- Video link[https://www.loom.com/share/9b47f4ea0f114b44b65ab7b7e54b7976]
+- Video link[https://www.loom.com/share/8e357c0fa16d4adea65e8dfe47cee7f8]
 ---
 
 ### 🔹 Java Files
