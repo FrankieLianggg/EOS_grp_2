@@ -12,7 +12,6 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Explicitly check if these foreign keys exist. If so, drop them.
     IF EXISTS (
         SELECT 1
         FROM sys.foreign_keys
@@ -232,9 +231,10 @@ BEGIN
     SET NOCOUNT ON;
 
     DECLARE @StartTime DATETIME2(7) = SYSDATETIME();
+    DECLARE @EndTime DATETIME2(7);
     DECLARE @RowCount INT;
 
-    SELECT @RowCount = SUM(p.rows)
+    SELECT @RowCount = ISNULL(SUM(p.rows), 0)
     FROM sys.tables t
     JOIN sys.schemas s
       ON t.schema_id = s.schema_id
@@ -243,11 +243,13 @@ BEGIN
     WHERE p.index_id IN (0,1)
       AND s.name IN ('CH01-01-Dimension', 'CH01-01-Fact');
 
+    SET @EndTime = SYSDATETIME();
+
     EXEC Process.usp_TrackWorkFlow
          @WorkFlowStepDescription = @TableStatus,
-         @WorkFlowStepTableRowCount = ISNULL(@RowCount, 0),
+         @WorkFlowStepTableRowCount = @RowCount,
          @StartingDateTime = @StartTime,
-         @EndingDateTime = SYSDATETIME(),
+         @EndingDateTime = @EndTime,
          @UserAuthorizationKey = @GroupMemberUserAuthorizationKey;
 
     SELECT
@@ -306,10 +308,7 @@ GO
 -- Create date: 2026-04-19
 -- Description: Orchestrates the complete reload of the BIClass star schema from the copied FileUpload source data.
 -- =============================================
-USE G9_2;
-GO
-
-CREATE OR ALTER PROCEDURE Project2.LoadStarSchemaData
+CREATE OR ALTER PROCEDURE [Project2].[LoadStarSchemaData]
     @GroupMemberUserAuthorizationKey INT
 AS
 BEGIN
@@ -331,32 +330,35 @@ BEGIN
       AND GroupMemberLastName = 'Cardoso';
 
     IF @BrandonUserAuthorizationKey IS NULL
-    BEGIN
         THROW 50001, 'Brandon Cho was not found in DbSecurity.UserAuthorization.', 1;
-    END;
 
     IF @SalvadorUserAuthorizationKey IS NULL
-    BEGIN
         THROW 50002, 'Salvador Cardoso was not found in DbSecurity.UserAuthorization.', 1;
-    END;
 
     EXEC Project2.DropForeignKeysFromStarSchemaData;
+
+    EXEC Project2.ShowTableStatusRowCount
+         @GroupMemberUserAuthorizationKey = @SalvadorUserAuthorizationKey,
+         @TableStatus = N'Pre-truncate of tables';
+
     EXEC Project2.TruncateStarSchemaData;
 
-    /* First half logged as Brandon Cho */
     EXEC Project2.Load_DimProductCategory    @BrandonUserAuthorizationKey;
     EXEC Project2.Load_DimProductSubcategory @BrandonUserAuthorizationKey;
     EXEC Project2.Load_SalesManagers         @BrandonUserAuthorizationKey;
     EXEC Project2.Load_DimGender             @BrandonUserAuthorizationKey;
     EXEC Project2.Load_DimMaritalStatus      @BrandonUserAuthorizationKey;
 
-    /* Second half logged as Salvador Cardoso */
     EXEC Project2.Load_DimOccupation         @SalvadorUserAuthorizationKey;
     EXEC Project2.Load_DimOrderDate          @SalvadorUserAuthorizationKey;
     EXEC Project2.Load_DimCustomer           @SalvadorUserAuthorizationKey;
     EXEC Project2.Load_DimTerritory          @SalvadorUserAuthorizationKey;
     EXEC Project2.Load_DimProduct            @SalvadorUserAuthorizationKey;
     EXEC Project2.Load_Data                  @SalvadorUserAuthorizationKey;
+
+    EXEC Project2.ShowTableStatusRowCount
+         @GroupMemberUserAuthorizationKey = @SalvadorUserAuthorizationKey,
+         @TableStatus = N'Row count after loading the star schema';
 
     EXEC Project2.AddForeignKeysToStarSchemaData;
 END;
