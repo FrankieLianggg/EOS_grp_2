@@ -18,27 +18,27 @@ GO
 
 -- DbSecurity schema
 IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'DbSecurity')
-    EXEC('CREATE SCHEMA DbSecurity'); -- stores user and authorization-related tables
+    CREATE SCHEMA DbSecurity -- stores user and authorization-related tables
 GO
 
 -- Process schema
 IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'Process')
-    EXEC('CREATE SCHEMA Process');
+    CREATE SCHEMA Process
 GO
 
 -- Sequence schema
 IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'PkSequence')
-    EXEC('CREATE SCHEMA PkSequence');
+    CREATE SCHEMA PkSequence
 GO
 
 -- Dimension schema
 IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'CH01-01-Dimension')
-    EXEC('CREATE SCHEMA [CH01-01-Dimension]'); -- holds the dimension tables for the star schema
+    CREATE SCHEMA [CH01-01-Dimension] -- holds the dimension tables for the star schema
 GO
 
 -- Fact schema
 IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'CH01-01-Fact')
-    EXEC('CREATE SCHEMA [CH01-01-Fact]');
+    CREATE SCHEMA [CH01-01-Fact]
 GO
 
 -- =============================================
