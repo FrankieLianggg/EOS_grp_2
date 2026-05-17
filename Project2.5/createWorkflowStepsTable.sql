@@ -69,3 +69,5 @@ INNER JOIN Data.Country co
 -- Verify
 select * from Data.Customer;
 select * from Data.Customer_Backup;
+
+/*Created by Prabjot, Edited by Frankie and verified by Brandon*/

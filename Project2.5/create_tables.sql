@@ -241,3 +241,5 @@ CREATE TABLE [Normalized].[SalesDetails]
     CONSTRAINT [DF_SalesDetails_LineItemDiscount]
         DEFAULT (0) FOR LineItemDiscount
 );
+
+/*Created by Salvador */
