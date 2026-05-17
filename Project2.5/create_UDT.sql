@@ -191,3 +191,5 @@ DROP TYPE IF EXISTS [UserDefinedTypes].[ImageBinary];
 CREATE TYPE [UserDefinedTypes].[ImageBinary]
   FROM VARBINARY(MAX) NOT NULL;
 GO
+
+/*Created by Salvador, Edited by Frankie and Prabjot*/
