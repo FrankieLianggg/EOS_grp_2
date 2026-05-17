@@ -3,353 +3,189 @@
  *  For example, if I've already made a copy of the old database,
  *    then do not make another copy.
  */
-USE PrestigeCars; 
+USE PrestigeCars;
 GO
 
 /*
  *  Make a copy of the original table.
- *  Syntax for object_id:
- *
- *    OBJECT_ID(N'object_name', N'object_type')
- *
  */
-if object_id(n'Data.Country_Original', n'u') is null
-  Begin
-    select 
+IF OBJECT_ID(N'Data.Country_Original', N'U') IS NULL
+  BEGIN
+    SELECT
       *
-    into
+    INTO
       [Data].[Country_Original]
-    from
+    FROM
       [Data].[Country];
-  End;
+  END;
+GO
 
 /*
  *  Create the schemas
- *  Syntax for schema_id:
- *
- *    SCHEMA_ID(N'schema_name')
- *
  */
-if schema_id(n'UserDefinedTypes') is null
-  Begin
-
-    -- I think create schema statements need to be the first in a batch.
-    -- create schema [UserDefinedTypes];
-
-    -- Think this creates a... dynamic sql context.
-    exec(n'create schema [UserDefinedTypes];');
-  End;
+IF SCHEMA_ID(N'UserDefinedTypes') IS NULL
+  CREATE SCHEMA [UserDefinedTypes];
 GO
 
-if schema_id(n'Subroutines') is null
-  Begin
-    -- create schema [n'Subroutines'];
-
-    exec(n'create schema [Subroutines];');
-  End;
+IF SCHEMA_ID(N'Subroutines') IS NULL
+  CREATE SCHEMA [Subroutines];
 GO
 
-if schema_id(n'Process') is null
-  Begin
-    -- create schema [n'Subroutines'];
-
-    exec(n'create schema [Process];');
-  End;
+IF SCHEMA_ID(N'Process') IS NULL
+  CREATE SCHEMA [Process];
 GO
-
 
 /*
- *  Create the User-Defined Types(UDT)
- *  Syntax for type_id:
- *
- *    TYPE_ID(N'type_name')
- *
+ *  Create the User-Defined Types (UDT)
  */
 
 /*
  *  (1) Keys
  */
+IF TYPE_ID(N'UserDefinedTypes.SurrogateIntKey') IS NULL
+  CREATE TYPE [UserDefinedTypes].[SurrogateIntKey]
+    FROM INT NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.SurrogateIntKey') is null
-  Begin
-    exec(n'
-      create type 
-        [UserDefinedTypes].[SurrogateIntKey]
-      from    
-        int not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.SurrogateSmallIntKey') IS NULL
+  CREATE TYPE [UserDefinedTypes].[SurrogateSmallIntKey]
+    FROM SMALLINT NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.SurrogateSmallIntKey') is null
-  Begin
-    exec(n'
-      create type 
-        [UserDefinedTypes].[SurrogateSmallIntKey]
-      from    
-        smallint not null;
-    ');
-  End;
-
-if type_id(n'UserDefinedTypes.SurrogateBigIntKey') is null
-  Begin
-    exec(n'
-      create type 
-        [UserDefinedTypes].[SurrogateBigIntKey]
-      from    
-        bigint not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.SurrogateBigIntKey') IS NULL
+  CREATE TYPE [UserDefinedTypes].[SurrogateBigIntKey]
+    FROM BIGINT NOT NULL;
+GO
 
 /*
- *  (2) Identifiers and code.
+ *  (2) Identifiers and codes
  */
+IF TYPE_ID(N'UserDefinedTypes.TinyCode') IS NULL
+  CREATE TYPE [UserDefinedTypes].[TinyCode]
+    FROM NVARCHAR(8) NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.TinyCode') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[TinyCode]
-      from
-        nvarchar(8) not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.SmallCode') IS NULL
+  CREATE TYPE [UserDefinedTypes].[SmallCode]
+    FROM NVARCHAR(16) NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.SmallCode') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[SmallCode]
-      from
-        nvarchar(16) not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.MediumCode') IS NULL
+  CREATE TYPE [UserDefinedTypes].[MediumCode]
+    FROM NVARCHAR(64) NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.MediumCode') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[MediumCode]
-      from
-        nvarchar(64) not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.ISOAlpha2') IS NULL
+  CREATE TYPE [UserDefinedTypes].[ISOAlpha2]
+    FROM NCHAR(2) NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.ISOAlpha2') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[ISOAlpha2]
-      from
-        nchar(2) not null;
-    ');
-  End;
-
-if type_id(n'UserDefinedTypes.ISOAlpha3') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[ISOAlpha3]
-      from
-        nchar(3) not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.ISOAlpha3') IS NULL
+  CREATE TYPE [UserDefinedTypes].[ISOAlpha3]
+    FROM NCHAR(3) NOT NULL;
+GO
 
 /*
- *  (3) Names and descriptions.
+ *  (3) Names and descriptions
  */
+IF TYPE_ID(N'UserDefinedTypes.ShortName') IS NULL
+  CREATE TYPE [UserDefinedTypes].[ShortName]
+    FROM NVARCHAR(32) NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.ShortName') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[ShortName]
-      from
-        nvarchar(32) not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.MediumName') IS NULL
+  CREATE TYPE [UserDefinedTypes].[MediumName]
+    FROM NVARCHAR(64) NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.MediumName') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[MediumName]
-      from
-        nvarchar(64) not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.LongName') IS NULL
+  CREATE TYPE [UserDefinedTypes].[LongName]
+    FROM NVARCHAR(256) NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.LongName') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[LongName]
-      from
-        nvarchar(256) not null;
-    ');
-  End;
- 
-if type_id(n'UserDefinedTypes.Comment') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[Comment]
-      from
-        nvarchar(4000) not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.Comment') IS NULL
+  CREATE TYPE [UserDefinedTypes].[Comment]
+    FROM NVARCHAR(4000) NOT NULL;
+GO
 
-
-if type_id(n'UserDefinedTypes.LongComment') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[LongComment]
-      from
-        nvarchar(max) not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.LongComment') IS NULL
+  CREATE TYPE [UserDefinedTypes].[LongComment]
+    FROM NVARCHAR(MAX) NOT NULL;
+GO
 
 /*
- *  (4) Address and locations.
+ *  (4) Address and locations
  */
+IF TYPE_ID(N'UserDefinedTypes.AddressLine') IS NULL
+  CREATE TYPE [UserDefinedTypes].[AddressLine]
+    FROM NVARCHAR(256) NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.AddressLine') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[AddressLine]
-      from
-        nvarchar(256) not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.TownName') IS NULL
+  CREATE TYPE [UserDefinedTypes].[TownName]
+    FROM NVARCHAR(64) NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.TownName') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[TownName]
-      from
-        nvarchar(64) not null;
-    ');
-  End;
-
-if type_id(n'UserDefinedTypes.PostalCode') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[PostalCode]
-      from
-        nvarchar(32) not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.PostalCode') IS NULL
+  CREATE TYPE [UserDefinedTypes].[PostalCode]
+    FROM NVARCHAR(32) NOT NULL;
+GO
 
 /*
- *  (5) Numbers.
+ *  (5) Numbers
  */
+IF TYPE_ID(N'UserDefinedTypes.YearNumber') IS NULL
+  CREATE TYPE [UserDefinedTypes].[YearNumber]
+    FROM SMALLINT NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.YearNumber') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[YearNumber]
-      from
-        smallint not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.MonthNumber') IS NULL
+  CREATE TYPE [UserDefinedTypes].[MonthNumber]
+    FROM TINYINT NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.MonthNumber') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[MonthNumber]
-      from
-        tinyint not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.LineItemNumber') IS NULL
+  CREATE TYPE [UserDefinedTypes].[LineItemNumber]
+    FROM TINYINT NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.LineItemNumber') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[LineItemNumber]
-      from
-        tinyint not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.MoneyAmount') IS NULL
+  CREATE TYPE [UserDefinedTypes].[MoneyAmount]
+    FROM MONEY NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.MoneyAmount') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[MoneyAmount]
-      from
-        money not null;
-    ');
-  End;
-
-if type_id(n'UserDefinedTypes.Percentage') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[Percentage]
-      from
-        tinyint not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.Percentage') IS NULL
+  CREATE TYPE [UserDefinedTypes].[Percentage]
+    FROM TINYINT NOT NULL;
+GO
 
 /*
  *  (6) Time
  */
+IF TYPE_ID(N'UserDefinedTypes.DateValue') IS NULL
+  CREATE TYPE [UserDefinedTypes].[DateValue]
+    FROM DATE NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.DateValue') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[DateValue]
-      from
-        date not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.DateTimeValue') IS NULL
+  CREATE TYPE [UserDefinedTypes].[DateTimeValue]
+    FROM DATETIME NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.DateTimeValue') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[DateTimeValue]
-      from
-        datetime not null;
-    ');
-  End;
-if type_id(n'UserDefinedTypes.TimeValue') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[TimeValue]
-      from
-        time(7) not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.TimeValue') IS NULL
+  CREATE TYPE [UserDefinedTypes].[TimeValue]
+    FROM TIME(7) NOT NULL;
+GO
 
 /*
- *  (7) etc.
+ *  (7) Etc.
  */
+IF TYPE_ID(N'UserDefinedTypes.BooleanFlag') IS NULL
+  CREATE TYPE [UserDefinedTypes].[BooleanFlag]
+    FROM BIT NOT NULL;
+GO
 
-if type_id(n'UserDefinedTypes.BooleanFlag') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[BooleanFlag]
-      from
-        bit not null;
-    ');
-  End;
-
-if type_id(n'UserDefinedTypes.ImageBinary') is null
-  Begin
-    exec(n'
-      create type
-        [UserDefinedTypes].[ImageBinary]
-      from
-        varbinary(max) not null;
-    ');
-  End;
+IF TYPE_ID(N'UserDefinedTypes.ImageBinary') IS NULL
+  CREATE TYPE [UserDefinedTypes].[ImageBinary]
+    FROM VARBINARY(MAX) NOT NULL;
+GO

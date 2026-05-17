@@ -1,0 +1,196 @@
+Step 1: Create a fresh database
+docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
+-S localhost `
+-U sa `
+-P "YourStrong!Pass123" `
+-C `
+-Q "IF DB_ID('PrestigeCars') IS NOT NULL
+BEGIN
+    ALTER DATABASE PrestigeCars SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE PrestigeCars;
+END;
+
+CREATE DATABASE PrestigeCars;"
+Step 2: Copy the original script into Docker
+docker cp "C:\Users\92307\Desktop\CSCI331\project2_5\PrestigeCarsDatabaseScript.sql" sql-local:/var/opt/mssql/PrestigeCarsDatabaseScript.sql
+Step 3: Run the original database script
+docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
+-S localhost `
+-U sa `
+-P "YourStrong!Pass123" `
+-C `
+-d PrestigeCars `
+-i /var/opt/mssql/PrestigeCarsDatabaseScript.sql
+
+Say:
+
+This creates the original PrestigeCars database tables and data.
+Step 4: Copy the final project script into Docker
+docker cp "C:\Users\92307\Desktop\CSCI331\project2_5\Final_Project2_5_PrestigeCars.sql" sql-local:/var/opt/mssql/Final_Project2_5_PrestigeCars.sql
+Step 5: Run the final project script
+docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
+-S localhost `
+-U sa `
+-P "YourStrong!Pass123" `
+-C `
+-d PrestigeCars `
+-i /var/opt/mssql/Final_Project2_5_PrestigeCars.sql
+
+Say:
+
+This script creates the UDTs, workflow table, constraints, views, inline table-valued function, verification queries, and backup command.
+Demonstrate the results
+
+After restoring the backup or running the scripts, run these demo queries.
+
+1. Show final object count
+docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
+-S localhost `
+-U sa `
+-P "YourStrong!Pass123" `
+-C `
+-d PrestigeCars `
+-Q "SELECT 'Tables' AS ObjectType, COUNT(*) AS ObjectCount FROM sys.tables
+UNION ALL
+SELECT 'Views', COUNT(*) FROM sys.views
+UNION ALL
+SELECT 'Inline Table-Valued Functions', COUNT(*) FROM sys.objects WHERE type = 'IF'
+UNION ALL
+SELECT 'User Defined Types', COUNT(*) FROM sys.types WHERE is_user_defined = 1
+UNION ALL
+SELECT 'Foreign Keys', COUNT(*) FROM sys.foreign_keys
+UNION ALL
+SELECT 'Check Constraints', COUNT(*) FROM sys.check_constraints
+UNION ALL
+SELECT 'Default Constraints', COUNT(*) FROM sys.default_constraints;"
+
+Expected result:
+
+Tables                          25
+Views                            3
+Inline Table-Valued Functions    1
+User Defined Types              18
+Foreign Keys                     1
+Check Constraints               10
+Default Constraints              5
+
+Say:
+
+This proves that the final database contains tables, views, one inline table-valued function, 18 UDTs, foreign keys, check constraints, and default constraints.
+2. Show the UDTs
+docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
+-S localhost `
+-U sa `
+-P "YourStrong!Pass123" `
+-C `
+-d PrestigeCars `
+-Q "SELECT 
+    SCHEMA_NAME(schema_id) AS UdtSchema,
+    name AS UdtName
+FROM sys.types
+WHERE is_user_defined = 1
+ORDER BY UdtSchema, UdtName;"
+
+Say:
+
+This shows the reusable user-defined datatypes created in the Udt schema.
+3. Show workflow project tracking
+docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
+-S localhost `
+-U sa `
+-P "YourStrong!Pass123" `
+-C `
+-d PrestigeCars `
+-Q "SELECT 
+    WorkflowStepID,
+    StepName,
+    StepStatus,
+    CompletedBy,
+    Notes
+FROM Process.WorkflowSteps
+ORDER BY WorkflowStepID;"
+
+Say:
+
+This shows the Process.WorkflowSteps table. It tracks the project lifecycle and confirms that each major step was completed.
+4. Show the inline table-valued function
+docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
+-S localhost `
+-U sa `
+-P "YourStrong!Pass123" `
+-C `
+-d PrestigeCars `
+-Q "SELECT TOP 10 * FROM Output.ufnSalesByYear(2018);"
+
+Say:
+
+This demonstrates the inline table-valued function Output.ufnSalesByYear. It takes a year as input and returns sales records for that year.
+5. Show the views
+docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
+-S localhost `
+-U sa `
+-P "YourStrong!Pass123" `
+-C `
+-d PrestigeCars `
+-Q "SELECT 
+    s.name AS SchemaName,
+    v.name AS ViewName
+FROM sys.views AS v
+INNER JOIN sys.schemas AS s
+    ON v.schema_id = s.schema_id
+ORDER BY s.name, v.name;"
+
+Then test one view:
+
+docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
+-S localhost `
+-U sa `
+-P "YourStrong!Pass123" `
+-C `
+-d PrestigeCars `
+-Q "SELECT TOP 10 * FROM Output.vwStockPrices;"
+
+Say:
+
+This view calculates stock cost information using the normalized stock, model, and make tables.
+6. Show constraints
+docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
+-S localhost `
+-U sa `
+-P "YourStrong!Pass123" `
+-C `
+-d PrestigeCars `
+-Q "SELECT 
+    OBJECT_SCHEMA_NAME(parent_object_id) AS SchemaName,
+    OBJECT_NAME(parent_object_id) AS TableName,
+    name AS CheckConstraintName,
+    definition
+FROM sys.check_constraints
+ORDER BY SchemaName, TableName, name;"
+
+Say:
+
+These check constraints help enforce business rules, such as non-negative sale prices, non-negative stock costs, and valid country code lengths.
+7. Show backup file exists
+Get-Item "C:\Users\92307\Desktop\CSCI331\project2_5\ClassTimeEOSgrp2PrestigeCars.bak"
+
+Say:
+
+This confirms that the final backup file exists locally and is ready for submission.
+Simple demo script to say
+
+You can say this during your video or presentation:
+
+First, I verified that Docker and SQL Server are running. 
+Then I restored the final PrestigeCars database backup or ran the original and final SQL scripts.
+
+The original script creates the starting PrestigeCars database. 
+The final project script adds the required project improvements, including the Udt schema, 18 user-defined datatypes, Process.WorkflowSteps, constraints, views, and the inline table-valued function Output.ufnSalesByYear.
+
+Next, I ran the final verification query. 
+The database contains 25 tables, 3 views, 1 inline table-valued function, 18 user-defined datatypes, 1 foreign key, 10 check constraints, and 5 default constraints.
+
+I also demonstrated Process.WorkflowSteps, which tracks the project lifecycle, and I tested Output.ufnSalesByYear with the year 2018. 
+The function returned sales records successfully.
+
+Finally, I verified that the backup file ClassTimeEOSgrp2PrestigeCars.bak exists in the project folder and is ready for submission.
