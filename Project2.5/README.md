@@ -9,7 +9,7 @@ This project focused on improving and normalizing the Prestige Cars database by 
 
 | Member | Responsibilities |
 |---|---|
-| Frankie Liang | Project planning, GitHub setup, workflow coordination |
+| Frankie Liang | Project planning, GitHub setup, workflow coordination, editing sql queries to follow uptodate syntax |
 | Prabhjot Kaur | Database normalization, schema/table creation, backup tables |
 | Salvador Cardoso | User Defined Data Types (UDTs), constraints |
 | Kanwal Jit Singh | UDTs, constraints, presentation/video |
