@@ -11,8 +11,14 @@ BEGIN
 END;
 
 CREATE DATABASE PrestigeCars;"
+
+
+
 Step 2: Copy the original script into Docker
 docker cp "C:\Users\92307\Desktop\CSCI331\project2_5\PrestigeCarsDatabaseScript.sql" sql-local:/var/opt/mssql/PrestigeCarsDatabaseScript.sql
+
+
+
 Step 3: Run the original database script
 docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
 -S localhost `
@@ -25,8 +31,14 @@ docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
 Say:
 
 This creates the original PrestigeCars database tables and data.
+
+
+
 Step 4: Copy the final project script into Docker
 docker cp "C:\Users\92307\Desktop\CSCI331\project2_5\Final_Project2_5_PrestigeCars.sql" sql-local:/var/opt/mssql/Final_Project2_5_PrestigeCars.sql
+
+
+
 Step 5: Run the final project script
 docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
 -S localhost `
@@ -42,6 +54,8 @@ This script creates the UDTs, workflow table, constraints, views, inline table-v
 Demonstrate the results
 
 After restoring the backup or running the scripts, run these demo queries.
+
+
 
 1. Show final object count
 docker exec -it sql-local /opt/mssql-tools18/bin/sqlcmd `
