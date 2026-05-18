@@ -7,32 +7,16 @@ USE PrestigeCars;
 GO
 
 /*
- *  Make a copy of the original table.
- */
-DROP TABLE IF EXISTS [Data].[Country_Original];
-
-SELECT
-  *
-INTO
-  [Data].[Country_Original]
-FROM
-  [Data].[Country];
-GO
-
-/*
  *  Create the schemas
  *  Note: schemas cannot be dropped and recreated if they own objects.
- *  Keeping the IF NULL guard here for safety.
  */
-IF SCHEMA_ID(N'UserDefinedTypes') IS NULL
+
   CREATE SCHEMA [UserDefinedTypes];
 GO
 
-IF SCHEMA_ID(N'Subroutines') IS NULL
   CREATE SCHEMA [Subroutines];
 GO
 
-IF SCHEMA_ID(N'Process') IS NULL
   CREATE SCHEMA [Process];
 GO
 
