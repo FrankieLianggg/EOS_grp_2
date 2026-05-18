@@ -30,7 +30,7 @@ The goal was to redesign the database into a normalized, scalable, and maintaina
 |---|---|
 | Frankie Liang | Project planning, GitHub setup, workflow coordination, editing SQL queries to follow updated syntax |
 | Prabhjot Kaur | Project planning, reminders, add/remove columns, schema/table creation, backup tables |
-| Salvador Cardoso | User Defined Data Types (UDTs), create tables, constraints |
+| Salvador Cardoso | User Defined Data Types (UDTs), create tables, constraints, assisted and helped everyone |
 | Kanwal Jit Singh | UDTs, constraints |
 | Simran Singh | Views/TVFs, indexes, PDM diagram |
 | Brandon Cho | Presentation, video, Views/TVFs, indexes |
