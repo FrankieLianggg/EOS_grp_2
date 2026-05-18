@@ -26,16 +26,16 @@ The goal was to redesign the database into a normalized, scalable, and maintaina
 
 # Group Members & Work Distribution
 
-| Member | Assigned Responsibilities |
+| Member | work done |
 |---|---|
 | Frankie Liang | Project planning, GitHub setup, workflow coordination, editing SQL queries to follow updated syntax |
-| Prabhjot Kaur | Project planning, reminders, add/remove columns, schema/table creation, backup tables |
+| Prabhjot Kaur | Project planning, reminders, add/remove columns, schema/table creation, backup tables, .bak file, readme file |
 | Salvador Cardoso | User Defined Data Types (UDTs), create tables, constraints, assisted and helped everyone |
-| Kanwal Jit Singh | UDTs, constraints |
-| Simran Singh | Views/TVFs, indexes, PDM diagram |
-| Brandon Cho | Presentation, video, Views/TVFs, indexes |
-| Amrina Qayyum | Data anomalies, documentation, backup preparation |
-| Shuai Wang | PDM diagram, documentation, anomaly correction |
+| Kanwal Jit Singh | no contribution |
+| Simran Singh | indexes, PDM diagram |
+| Brandon Cho | Presentation, video |
+| Amrina Qayyum | documentation |
+| Shuai Wang | no contribution |
 
 ---
 
