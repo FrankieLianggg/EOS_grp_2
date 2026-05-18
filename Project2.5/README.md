@@ -35,7 +35,7 @@ The goal was to redesign the database into a normalized, scalable, and maintaina
 | Frankie Liang | Project planning, GitHub setup, workflow coordination, editing SQL queries to follow updated syntax |
 | Prabhjot Kaur | Project planning, reminders, add/remove columns, schema/table creation, backup tables, `.bak` file, README file |
 | Salvador Cardoso | User Defined Data Types (UDTs), create tables, constraints, assisted and helped team members |
-| Kanwal Jit Singh | `demo_queries_.sql` (presentation demo queries aligned to course style) |
+| Kanwal Jit Singh | No documented contribution |
 | Simran Singh | Indexes, PDM diagram |
 | Brandon Cho | Presentation, video |
 | Amrina Qayyum | Documentation |
@@ -56,7 +56,6 @@ The goal was to redesign the database into a normalized, scalable, and maintaina
 | `create_views_and_itvfs.sql` | Creates Views and Inline Table-Valued Functions |
 | `createWorkflowStepsTable.sql` | Creates the `Process.WorkflowSteps` table |
 | `view_draft.sql` | Draft/work file for views |
-| `demo_queries_.sql` | Presentation demo queries (`UserDefinedTypes`, `Subroutines`, `Normalized`; additive to `message.txt`) |
 | `ClassTimeEOSgrp2PrestigeCars.bak` | Final database backup file |
 | `0910_EOSgrp2_PrestigeCars.bak` | Database backup file |
 | `0910 -EOS#2 – To-do list for projects 2.5.xlsx` | Project tracking/to-do file |
@@ -96,7 +95,6 @@ The goal was to redesign the database into a normalized, scalable, and maintaina
 - Maintained GitHub repository for version control
 - Prepared final backup file for submission
 - Prepared presentation file and video demonstration
-- Created `demo_queries_.sql` (presentation demo queries)
 
 ---
 
