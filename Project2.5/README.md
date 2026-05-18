@@ -55,6 +55,7 @@ The goal was to redesign the database into a normalized, scalable, and maintaina
 # Project Tasks Completed
 
 -VIDEO LINK[Powerpoint presentation][https://youtu.be/vyMzV5Y9M7c]
+-presentation link[https://1drv.ms/p/c/2c27ee94644c4795/IQDpCYSPsmvXQ7mLMi3wOmRhAWumGkzTs2qpBwlLTOLtjGc?e=ZPemQs]
 - Created `create_UDT.sql`
 - Created `create_tables.sql`
 - Created `create_views_and_itvfs.sql`
