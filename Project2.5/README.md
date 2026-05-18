@@ -54,6 +54,8 @@ The goal was to redesign the database into a normalized, scalable, and maintaina
 
 # Project Tasks Completed
 
+-todolist [<img width="1081" height="910" alt="image" src="https://github.com/user-attachments/assets/273a4375-0cfd-4512-a0b6-5914900a123e" />]
+
 -VIDEO LINK[Powerpoint presentation][https://youtu.be/vyMzV5Y9M7c]
 -[presentation link][https://1drv.ms/p/c/2c27ee94644c4795/IQDpCYSPsmvXQ7mLMi3wOmRhAWumGkzTs2qpBwlLTOLtjGc?e=ZPemQs]
 - Created `create_UDT.sql`
