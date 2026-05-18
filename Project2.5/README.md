@@ -54,7 +54,7 @@ The goal was to redesign the database into a normalized, scalable, and maintaina
 
 # Project Tasks Completed
 
--todolist [<img width="1081" height="910" alt="image" src="https://github.com/user-attachments/assets/273a4375-0cfd-4512-a0b6-5914900a123e" />]
+-todolist link[https://cuny-my.sharepoint.com/:x:/g/personal/frankie_liang64_qmail_cuny_edu/IQBYk-uwedoeSYeQujb7QlusAf3twJ29F5et3pbg5PI9Z4s?e=9sOhLK]
 
 -VIDEO LINK[Powerpoint presentation][https://youtu.be/vyMzV5Y9M7c]
 -[presentation link][https://1drv.ms/p/c/2c27ee94644c4795/IQDpCYSPsmvXQ7mLMi3wOmRhAWumGkzTs2qpBwlLTOLtjGc?e=ZPemQs]
