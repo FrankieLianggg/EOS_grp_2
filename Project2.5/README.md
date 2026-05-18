@@ -57,8 +57,10 @@ The goal was to redesign the database into a normalized, scalable, and maintaina
 -todolist link[https://cuny-my.sharepoint.com/:x:/g/personal/frankie_liang64_qmail_cuny_edu/IQBYk-uwedoeSYeQujb7QlusAf3twJ29F5et3pbg5PI9Z4s?e=9sOhLK]
 
 -VIDEO LINK[Powerpoint presentation][https://youtu.be/vyMzV5Y9M7c]
--[presentation link][https://1drv.ms/p/c/2c27ee94644c4795/IQDpCYSPsmvXQ7mLMi3wOmRhAWumGkzTs2qpBwlLTOLtjGc?e=ZPemQs]
-- Created `create_UDT.sql`
+
+-presentation link[https://1drv.ms/p/c/2c27ee94644c4795/IQDpCYSPsmvXQ7mLMi3wOmRhAWumGkzTs2qpBwlLTOLtjGc?e=ZPemQs]
+
+-  Created `create_UDT.sql`
 - Created `create_tables.sql`
 - Created `create_views_and_itvfs.sql`
 - Created `createWorkflowStepsTable.sql`
