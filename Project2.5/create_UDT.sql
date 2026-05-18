@@ -4,19 +4,17 @@
  *    then do not make another copy.
  */
 USE PrestigeCars;
-GO
-
 /*
  *  Create the schemas
  *  Note: schemas cannot be dropped and recreated if they own objects.
  */
-
+GO
+  CREATE SCHEMA [Normalized];
+GO
   CREATE SCHEMA [UserDefinedTypes];
 GO
-
   CREATE SCHEMA [Subroutines];
 GO
-
   CREATE SCHEMA [Process];
 GO
 
@@ -174,6 +172,19 @@ GO
 DROP TYPE IF EXISTS [UserDefinedTypes].[ImageBinary];
 CREATE TYPE [UserDefinedTypes].[ImageBinary]
   FROM VARBINARY(MAX) NOT NULL;
+GO
+
+/*
+ *  Verification: list all UDTs just created.
+ */
+SELECT
+    name           AS TypeName,
+    system_type_id,
+    max_length,
+    is_nullable
+FROM sys.types
+WHERE is_user_defined = 1
+ORDER BY name;
 GO
 
 /*Created by Salvador, Edited by Frankie and Prabjot*/
