@@ -7,7 +7,7 @@ This project focused on improving and normalizing the Prestige Cars database by 
 
 # Group Members & Work Distribution
 
-| Member | Responsibilities |
+| Member | Assigned Responsibilities |
 |---|---|
 | Frankie Liang | Project planning, GitHub setup, workflow coordination, editing sql queries to follow uptodate syntax |
 | Prabhjot Kaur | Database normalization, schema/table creation, backup tables |
@@ -22,10 +22,10 @@ This project focused on improving and normalizing the Prestige Cars database by 
 
 # Project Tasks Completed
 
-- Created `Process` schema
+- create_views_and_itvfs.sql
 - Created `Process.WorkflowSteps` table
-- Created backup tables before normalization
-- Added and removed columns for normalization
+- create_UDT.sql
+- create_tables.sql
 - Created normalized lookup tables
 - Improved relational integrity
 - Replaced repeated text values with relational IDs
